@@ -60,7 +60,8 @@ public class PlantServiceImpl implements PlantService {
             throw new ResourceValidationException(ENTITY, violations);
         }
         plant.setId(null);
-        List<Plant> plantsByUser = getPlantsByUserId(plant.getUserId());
+
+        List<Plant> plantsByUser = plantRepository.findAllByUserId(plant.getUserId());
         if(plantsByUser.isEmpty()) {
             return plantRepository.save(plant);
         }else{
